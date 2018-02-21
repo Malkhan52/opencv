@@ -1547,8 +1547,8 @@ static AVStream *icv_add_video_stream_FFMPEG(AVFormatContext *oc,
     }
     if (c->codec_id == CV_CODEC(CODEC_ID_MPEG1VIDEO) || c->codec_id == CV_CODEC(CODEC_ID_MSMPEG4V3)){
         /* needed to avoid using macroblocks in which some coeffs overflow
-           this doesnt happen with normal video, it just happens here as the
-           motion of the chroma plane doesnt match the luma plane */
+           this doesn't happen with normal video, it just happens here as the
+           motion of the chroma plane doesn't match the luma plane */
         /* avoid FFMPEG warning 'clipping 1 dct coefficients...' */
         c->mb_decision=2;
     }
@@ -1568,7 +1568,7 @@ static AVStream *icv_add_video_stream_FFMPEG(AVFormatContext *oc,
 #endif
 
 #if LIBAVCODEC_VERSION_INT>0x000409
-    // some formats want stream headers to be seperate
+    // some formats want stream headers to be separate
     if(oc->oformat->flags & AVFMT_GLOBALHEADER)
     {
 #if LIBAVCODEC_BUILD > CALC_FFMPEG_VERSION(56, 35, 0)
@@ -1707,7 +1707,7 @@ bool CvVideoWriter_FFMPEG::writeFrame( const unsigned char* data, int step, int 
     const int CV_STEP_ALIGNMENT = 32;
     const size_t CV_SIMD_SIZE = 32;
     const size_t CV_PAGE_MASK = ~(4096 - 1);
-    const uchar* dataend = data + ((size_t)height * step);
+    const unsigned char* dataend = data + ((size_t)height * step);
     if (step % CV_STEP_ALIGNMENT != 0 ||
         (((size_t)dataend - CV_SIMD_SIZE) & CV_PAGE_MASK) != (((size_t)dataend + CV_SIMD_SIZE) & CV_PAGE_MASK))
     {
@@ -2387,8 +2387,8 @@ AVStream* OutputMediaStream_FFMPEG::addVideoStream(AVFormatContext *oc, CV_CODEC
     if (c->codec_id == CV_CODEC(CODEC_ID_MPEG1VIDEO) || c->codec_id == CV_CODEC(CODEC_ID_MSMPEG4V3))
     {
         // needed to avoid using macroblocks in which some coeffs overflow
-        // this doesnt happen with normal video, it just happens here as the
-        // motion of the chroma plane doesnt match the luma plane
+        // this doesn't happen with normal video, it just happens here as the
+        // motion of the chroma plane doesn't match the luma plane
 
         // avoid FFMPEG warning 'clipping 1 dct coefficients...'
 
@@ -2396,7 +2396,7 @@ AVStream* OutputMediaStream_FFMPEG::addVideoStream(AVFormatContext *oc, CV_CODEC
     }
 
     #if LIBAVCODEC_VERSION_INT > 0x000409
-        // some formats want stream headers to be seperate
+        // some formats want stream headers to be separate
         if (oc->oformat->flags & AVFMT_GLOBALHEADER)
         {
             #if LIBAVCODEC_BUILD > CALC_FFMPEG_VERSION(56, 35, 0)
