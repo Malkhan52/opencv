@@ -160,7 +160,6 @@ class Builder:
         cmake_vars = dict(
             CMAKE_TOOLCHAIN_FILE=self.get_toolchain_file(),
             WITH_OPENCL="OFF",
-            WITH_CUDA="OFF",
             WITH_IPP=("ON" if abi.haveIPP() else "OFF"),
             WITH_TBB="ON",
             BUILD_EXAMPLES="OFF",
@@ -195,7 +194,6 @@ class Builder:
         cmake_vars = dict(
             CMAKE_TOOLCHAIN_FILE=self.get_toolchain_file(),
             WITH_OPENCL="OFF",
-            WITH_CUDA="OFF",
             WITH_IPP="OFF",
             BUILD_ANDROID_SERVICE = 'ON'
         )
@@ -208,7 +206,7 @@ class Builder:
         # Add extra data
         apkxmldest = check_dir(os.path.join(apkdest, "res", "xml"), create=True)
         apklibdest = check_dir(os.path.join(apkdest, "libs", abi.name), create=True)
-        for ver, d in self.extra_packs + [("3.4.0", os.path.join(self.libdest, "lib"))]:
+        for ver, d in self.extra_packs + [("3.4.1", os.path.join(self.libdest, "lib"))]:
             r = ET.Element("library", attrib={"version": ver})
             log.info("Adding libraries from %s", d)
 

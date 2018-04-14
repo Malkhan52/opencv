@@ -42,7 +42,6 @@
 
 #ifndef _OPENCV_LIBDNN_HPP_
 #define _OPENCV_LIBDNN_HPP_
-#include "../../precomp.hpp"
 #include <iomanip>
 #include <map>
 #include <memory>
@@ -51,7 +50,6 @@
 #include "common.hpp"
 
 namespace cv { namespace dnn { namespace ocl4dnn {
-#ifdef HAVE_OPENCL
 
 struct OCL4DNNConvConfig
 {
@@ -285,6 +283,8 @@ class OCL4DNNConvSpatial
         int32_t width_;
         int32_t pad_h_;
         int32_t pad_w_;
+        int32_t pad_bottom_;
+        int32_t pad_right_;
         int32_t stride_h_;
         int32_t stride_w_;
         int32_t dilation_h_;
@@ -344,7 +344,8 @@ struct OCL4DNNPoolConfig
         dilation(1, 1),
         channels(0),
         pool_method(LIBDNN_POOLING_METHOD_MAX),
-        global_pooling(false)
+        global_pooling(false),
+        avePoolPaddedArea(false)
     {}
     MatShape in_shape;
     MatShape out_shape;
@@ -356,6 +357,7 @@ struct OCL4DNNPoolConfig
     int channels;
     ocl4dnnPoolingMethod_t pool_method; // = LIBDNN_POOLING_METHOD_MAX;
     bool global_pooling; // = false;
+    bool avePoolPaddedArea;
 };
 
 template<typename Dtype>
@@ -388,6 +390,7 @@ class OCL4DNNPool
         int32_t width_;
         int32_t pooled_height_;
         int32_t pooled_width_;
+        bool avePoolPaddedArea;
 };
 
 struct OCL4DNNInnerProductConfig
@@ -504,8 +507,7 @@ class OCL4DNNSoftmax
         bool log_softmax_;
         UMat scale_data_;
 };
-#endif // HAVE_OPENCL
-} // namespace ocl4dnn
-} // namespace dnn
-} // namespce cv
+
+}}} // namespace cv::dnn::ocl4dnn
+
 #endif
